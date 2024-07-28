@@ -1,28 +1,31 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MovieService} from "../../services/movie.service";
+import {firstValueFrom} from "rxjs";
+import {MovieCardComponent} from "../movie-card/movie-card.component";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-movie-grabber',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MovieCardComponent,
+    FooterComponent
   ],
   templateUrl: './movie-grabber.component.html',
   styleUrl: './movie-grabber.component.css',
 })
 export class MovieGrabberComponent {
-  title = new FormControl('');
+  @Input()
+  title = new FormControl('',{ updateOn: 'blur' });
   constructor(private movieService: MovieService, private formBuilder: FormBuilder) {}
   movieForm = this.formBuilder.group({
     title: '',
   });
 
-  retrieveMovie() {
-    console.log(this.title.value)
-    this.movieService.getMovie(this.title.value).subscribe((resp) => {
-      console.log(resp)
-    }).unsubscribe()
+  updateTitle() {
+    this.title.reset();
   }
 }

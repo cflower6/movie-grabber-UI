@@ -1,15 +1,17 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-8 offset-3">
+    <div class="col-10 offset-5">
       <div class="input-group mt-5">
+        <button class="btn btn-outline-secondary" type="button" id="search-button" (click)="updateTitle()" >Search</button>
         <div [formGroup]="movieForm">
-          <button class="btn btn-outline-secondary" type="button" id="search-button" (click)="retrieveMovie()" >Search</button>
           <input [formControl]="title" type="text" formControlName="title" class="form-control" aria-label="Input text with search button addon" aria-describedby="button-addon">
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-
+    <div class="col-11 offset-1 mt-5 mb-lg-5">
+      <app-movie-card [movieTitle]="title"></app-movie-card>
+    </div>
   </div>
 </div>
